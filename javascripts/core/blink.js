@@ -1,0 +1,75 @@
+window.ROID5 = window.ROID5 || {};
+
+// Battle field for 2 players
+ROID5.Blink = (function (Layout) {
+
+    function Blink(offsetY) {
+        this.x = 0;
+        this.y = 0;
+        this.width = 0;
+        this.height = 0;
+
+        this.offsetY = offsetY;
+
+        this.zone = null;
+        this.index = null;
+
+        this._sprite = null;
+    }
+
+    Blink.prototype.moveTo = function (x, y) {
+        var z = Layout.zoneAt(x, y + this.offsetY);
+        if (z) {
+            if (z.zone != this.zone || z.index != this.index) {
+                this.zone = z.zone;
+                this.index = z.index;
+                this.x = z.x;
+                this.y = z.y - this.offsetY;
+                this.width = z.width;
+                this.height = z.height;
+
+                this._sprite.clear();
+                this._sprite.beginFill(0xFFFFFF, 0.5);
+                this._sprite.drawRect(this.x, this.y, this.width, this.height);
+
+                this.start();
+            }
+        } else {
+            this.zone = null;
+            this.index = null;
+            this.stop();
+        }
+    };
+
+    Blink.prototype.start = function() {
+        if(this._tween) {
+            this._tween.resume();
+        }
+    };
+
+    Blink.prototype.stop = function() {
+        this._sprite.clear();
+        if(this._tween) {
+            this._tween.pause();
+        }
+    };
+
+    Blink.prototype.sprite = function (game) {
+        var self = this;
+
+        function createSprite() {
+            var blink = new Phaser.Graphics(game, 0, 0);
+            blink.beginFill(0xFFFFFF, 0.5);
+            blink.drawRect(0, 0, 0, 0);
+            self._sprite = blink;
+            blink.coreObj = self;
+
+            self._tween = game.add.tween(blink).to({alpha: 0.2}, 800, Phaser.Easing.Linear.None, true, 0, -1, true);
+            return blink;
+        }
+
+        return this._sprite || createSprite();
+    };
+
+    return Blink;
+})(ROID5.Layout);

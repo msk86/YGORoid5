@@ -1,11 +1,11 @@
 window.ROID5 = window.ROID5 || {};
 
 ROID5.Layout = {
-    diskWidth: function() {
+    diskWidth: function () {
         return this.FIELD[0].length * this.RATE;
     },
 
-    diskHeight: function() {
+    diskHeight: function () {
         return this.FIELD.length * this.RATE;
     },
 
@@ -16,40 +16,65 @@ ROID5.Layout = {
     reverse: function (zone, index) {
         for (var c in this.Z_MAP) {
             var z = this.map(c);
-            if (zone == z.zone && index == z.index) {
+            if (z && zone == z.zone && index == z.index) {
                 return c;
             }
         }
     },
 
+    zoneAt: function (x, y) {
+        if (x < 0 || x >= this.diskWidth()) {
+            x = 0;
+        }
+        if (y < 0 || y >= this.diskHeight()) {
+            y = 0;
+        }
+        var c = this.FIELD[Math.floor(y / this.RATE)][Math.floor(x / this.RATE)];
+        var zoneMapping = this.map(c);
+        if (zoneMapping) {
+            return this.zoneDetail(zoneMapping.zone, zoneMapping.index);
+        }
+    },
+
+    zoneDetail: function (zone, index) {
+        return {
+            zone: zone,
+            index: index,
+            x: ROID5.Layout.xOf(zone, index),
+            y: ROID5.Layout.yOf(zone, index),
+            width: ROID5.Layout.widthOf(zone, index),
+            height: ROID5.Layout.heightOf(zone, index)
+        };
+    },
+
     widthOf: function (zone, index) {
         var c = this.reverse(zone, index);
         return this.FIELD.filter(function (line) {
-            return line.indexOf(c) >= 0;
-        })[0].split('').filter(function (cc) {
-            return cc == c;
-        }).length * this.RATE;
+                return line.indexOf(c) >= 0;
+            })[0].split('').filter(function (cc) {
+                    return cc == c;
+                }).length * this.RATE;
     },
 
     heightOf: function (zone, index) {
         var c = this.reverse(zone, index);
         return this.FIELD.filter(function (line) {
-            return line.indexOf(c) >= 0;
-        }).length * this.RATE;
+                return line.indexOf(c) >= 0;
+            }).length * this.RATE;
     },
 
     xOf: function (zone, index) {
         var c = this.reverse(zone, index);
         return this.FIELD.filter(function (line) {
-            return line.indexOf(c) >= 0;
-        })[0].indexOf(c);
+                return line.indexOf(c) >= 0;
+            })[0].indexOf(c) * this.RATE;
     },
 
     yOf: function (zone, index) {
         var c = this.reverse(zone, index);
         for (var i = 0; i < this.FIELD.length; i++) {
             if (this.FIELD[i].indexOf(c) >= 0) {
-                return i;
+                return i * this.RATE;
             }
         }
     },
@@ -74,7 +99,7 @@ ROID5.Layout = {
         "&": {zone: 'MagicTrap', index: 2},
         "*": {zone: 'MagicTrap', index: 3},
         "(": {zone: 'MagicTrap', index: 4},
-        "0": {zone: null, index: 0}
+        "0": null
     },
 
     FIELD: [
