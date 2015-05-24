@@ -11,32 +11,29 @@ ROID5.Blink = (function (Layout) {
 
         this.offsetY = offsetY;
 
-        this.zone = null;
-        this.index = null;
+        this.zoneId = null;
 
         this._sprite = null;
     }
 
     Blink.prototype.moveTo = function (x, y) {
-        var z = Layout.zoneAt(x, y + this.offsetY);
+        var z = Layout.zoneAt(x, y - this.offsetY);
         if (z) {
-            if (z.zone != this.zone || z.index != this.index) {
-                this.zone = z.zone;
-                this.index = z.index;
+            if (z.id != this.zoneId) {
+                this.zoneId = z.id;
                 this.x = z.x;
-                this.y = z.y - this.offsetY;
+                this.y = z.y + this.offsetY;
                 this.width = z.width;
                 this.height = z.height;
 
                 this._sprite.clear();
-                this._sprite.beginFill(0xFFFFFF, 0.5);
+                this._sprite.beginFill(0xFF0000, 0.5);
                 this._sprite.drawRect(this.x, this.y, this.width, this.height);
 
                 this.start();
             }
         } else {
-            this.zone = null;
-            this.index = null;
+            this.zoneId = null;
             this.stop();
         }
     };

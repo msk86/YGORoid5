@@ -5,9 +5,9 @@ ROID5.Field = (function(Disk, Layout) {
 
     function Field() {
         this.x = 0;
-        this.y = 320 - Layout.diskHeight();
-        this.width = Layout.diskWidth();
-        this.height = Layout.diskHeight() * 2;
+        this.y = (640 - Layout.fieldHeight()) / 2;
+        this.width = Layout.fieldWidth();
+        this.height = Layout.fieldHeight();
     }
 
     Field.prototype.sprite = function(game) {
