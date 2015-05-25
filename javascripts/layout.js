@@ -38,15 +38,24 @@ ROID5.Layout = {
     },
 
     zoneDetail: function (player, zone, index) {
+        var x = ROID5.Layout.xOf(player, zone, index),
+            y = ROID5.Layout.yOf(player, zone, index),
+            width = ROID5.Layout.widthOf(player, zone, index),
+            height = ROID5.Layout.heightOf(player, zone, index),
+            centerX = x + width / 2,
+            centerY = y + height / 2;
+
         return {
             id: player + ":" + zone + "-" + index,
             zone: zone,
             index: index,
             player: player,
-            x: ROID5.Layout.xOf(player, zone, index),
-            y: ROID5.Layout.yOf(player, zone, index),
-            width: ROID5.Layout.widthOf(player, zone, index),
-            height: ROID5.Layout.heightOf(player, zone, index)
+            x: x,
+            y: y,
+            centerX: centerX,
+            centerY: centerY,
+            width: width,
+            height: height
         };
     },
 

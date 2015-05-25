@@ -9,6 +9,9 @@ var duelState = {
 
         this.blink = new ROID5.Blink(this.field.y);
         this.game.add.existing(this.blink.sprite(this.game));
+
+        this.card = new ROID5.Card('6928');
+        this.game.add.existing(this.card.sprite(this.game));
     },
 
     update: function() {
