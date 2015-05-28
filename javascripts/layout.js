@@ -41,10 +41,7 @@ ROID5.Layout = {
         var x = ROID5.Layout.xOf(player, zone, index),
             y = ROID5.Layout.yOf(player, zone, index),
             width = ROID5.Layout.widthOf(player, zone, index),
-            height = ROID5.Layout.heightOf(player, zone, index),
-            centerX = x + width / 2,
-            centerY = y + height / 2;
-
+            height = ROID5.Layout.heightOf(player, zone, index);
         return {
             id: player + ":" + zone + "-" + index,
             zone: zone,
@@ -52,10 +49,12 @@ ROID5.Layout = {
             player: player,
             x: x,
             y: y,
-            centerX: centerX,
-            centerY: centerY,
             width: width,
-            height: height
+            height: height,
+            center: {
+                x: (x + width / 2),
+                y: (y + height / 2)
+            }
         };
     },
 
@@ -101,6 +100,8 @@ ROID5.Layout = {
     },
 
     RATE: 2,
+    FIELD_X: 0,
+    FIELD_Y: 64,
 
     Z_MAP: {
         "F": {zone: 'FieldMagic', index: 0},

@@ -3,13 +3,11 @@ window.ROID5 = window.ROID5 || {};
 // Battle field for 2 players
 ROID5.Blink = (function (Layout) {
 
-    function Blink(offsetY) {
+    function Blink() {
         this.x = 0;
         this.y = 0;
         this.width = 0;
         this.height = 0;
-
-        this.offsetY = offsetY;
 
         this.zoneId = null;
 
@@ -17,12 +15,12 @@ ROID5.Blink = (function (Layout) {
     }
 
     Blink.prototype.moveTo = function (x, y) {
-        var z = Layout.zoneAt(x, y - this.offsetY);
+        var z = Layout.zoneAt(x - Layout.FIELD_X, y - Layout.FIELD_Y);
         if (z) {
             if (z.id != this.zoneId) {
                 this.zoneId = z.id;
-                this.x = z.x;
-                this.y = z.y + this.offsetY;
+                this.x = z.x + Layout.FIELD_X;
+                this.y = z.y + Layout.FIELD_Y;
                 this.width = z.width;
                 this.height = z.height;
 

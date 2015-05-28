@@ -1,22 +1,23 @@
 window.ROID5 = window.ROID5 || {};
 
-ROID5.Card = (function() {
+ROID5.Card = (function(Layout) {
 
-    function Card(cardId) {
-        this.cardId = cardId;
+    function Card(id) {
+        this.id = id;
 
-        this.x = 100;
-        this.y = 100;
-        this.width = 50;
-        this.height = 74;
+        this.set = false;
+        this.positive = true;
+
+        this.x = -999;
+        this.y = -999;
+        this.width = 49;
+        this.height = 70;
     }
 
     Card.prototype.sprite = function(game) {
         var self = this;
         function createSprite() {
-            var card = new Phaser.Sprite(game, self.x, self.y, self.cardId);
-            card.anchor.set(0.5);
-            card.inputEnabled = true;
+            var card = new CardSprite(game, self.x, self.y, self);
             card.coreObj = self;
             self._sprite = card;
 
@@ -24,6 +25,35 @@ ROID5.Card = (function() {
         }
 
         return this._sprite || createSprite();
+    };
+
+    Card.prototype.moveTo = function(x, y) {
+        this.x = x + Layout.FIELD_X;
+        this.y = y + Layout.FIELD_Y;
+        this._sprite.x = this.x;
+        this._sprite.y = this.y;
+    };
+
+    function CardSprite(game, x, y, card) {
+        Phaser.Sprite.call(this, game, x, y, card.id);
+        this.card = card;
+        this.anchor.setTo(0.5);
+    }
+
+    CardSprite.prototype = Object.create(Phaser.Sprite.prototype);
+    CardSprite.prototype.constructor = CardSprite;
+
+    CardSprite.prototype.update = function() {
+        if(this.card.positive) {
+            this.angle = 0;
+        } else {
+            this.angle = 90;
+        }
+        if(this.card.set) {
+            this.loadTexture('cover', 0);
+        } else {
+            this.loadTexture(this.card.id, 0);
+        }
     };
 
     return Card;
