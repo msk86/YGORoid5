@@ -12,8 +12,8 @@ var duelState = {
         this.field.addChild(this.blink);
 
         this.card = new ROID5.Card(this.game, '6928');
-        this.card.set = true;
-        this.card.positive = false;
+        this.card.set = false;
+        this.card.positive = true;
         this.field.addChild(this.card);
         var zone = ROID5.Layout.zoneDetail(0, 'Monster', 2);
         this.card.moveTo(zone.center.x, zone.center.y);

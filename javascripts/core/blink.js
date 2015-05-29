@@ -1,18 +1,12 @@
 window.ROID5 = window.ROID5 || {};
 
 // Battle field for 2 players
-ROID5.Blink = (function (Layout) {
+ROID5.Blink = (function (Core, Layout) {
 
     function Blink(game) {
-        this.game = game;
-        this.x = 0;
-        this.y = 0;
-        this.width = 0;
-        this.height = 0;
+        Core.call(this, game);
 
         this.zoneId = null;
-
-        this._sprite = null;
     }
 
     Blink.prototype.moveTo = function (x, y) {
@@ -57,8 +51,8 @@ ROID5.Blink = (function (Layout) {
             var blink = new Phaser.Graphics(self.game, 0, 0);
             blink.beginFill(0xFFFFFF, 0.5);
             blink.drawRect(0, 0, 0, 0);
+            blink._core = self;
             self._sprite = blink;
-            blink.coreObj = self;
 
             self._tween = self.game.add.tween(blink).to({alpha: 0.2}, 800, Phaser.Easing.Linear.None, true, 0, -1, true);
             return blink;
@@ -68,4 +62,4 @@ ROID5.Blink = (function (Layout) {
     };
 
     return Blink;
-})(ROID5.Layout);
+})(ROID5.Core, ROID5.Layout);
