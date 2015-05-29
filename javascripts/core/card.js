@@ -2,22 +2,23 @@ window.ROID5 = window.ROID5 || {};
 
 ROID5.Card = (function(Layout) {
 
-    function Card(id) {
+    function Card(game, id) {
         this.id = id;
 
         this.set = false;
         this.positive = true;
 
+        this.game = game;
         this.x = -999;
         this.y = -999;
         this.width = 49;
         this.height = 70;
     }
 
-    Card.prototype.sprite = function(game) {
+    Card.prototype.sprite = function() {
         var self = this;
         function createSprite() {
-            var card = new CardSprite(game, self.x, self.y, self);
+            var card = new CardSprite(self.game, self.x, self.y, self);
             card.coreObj = self;
             self._sprite = card;
 
@@ -28,8 +29,8 @@ ROID5.Card = (function(Layout) {
     };
 
     Card.prototype.moveTo = function(x, y) {
-        this.x = x + Layout.FIELD_X;
-        this.y = y + Layout.FIELD_Y;
+        this.x = x;
+        this.y = y;
         this._sprite.x = this.x;
         this._sprite.y = this.y;
     };

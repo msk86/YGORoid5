@@ -5,16 +5,16 @@ var duelState = {
     },
 
     create: function() {
-        this.field = new ROID5.Field();
-        this.game.add.existing(this.field.sprite(this.game));
+        this.field = new ROID5.Field(this.game);
+        this.game.add.existing(this.field.sprite());
 
-        this.blink = new ROID5.Blink();
-        this.game.add.existing(this.blink.sprite(this.game));
+        this.blink = new ROID5.Blink(this.game);
+        this.field.addChild(this.blink);
 
-        this.card = new ROID5.Card('6928');
+        this.card = new ROID5.Card(this.game, '6928');
         this.card.set = true;
         this.card.positive = false;
-        this.game.add.existing(this.card.sprite(this.game));
+        this.field.addChild(this.card);
         var zone = ROID5.Layout.zoneDetail(0, 'Monster', 2);
         this.card.moveTo(zone.center.x, zone.center.y);
     },
