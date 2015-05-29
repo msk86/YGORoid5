@@ -8,8 +8,6 @@ ROID5.Field = (function(Core, CoreSprite, Layout) {
 
         this.x = 0;
         this.y = (640 - Layout.fieldHeight()) / 2;
-        this.width = Layout.fieldWidth();
-        this.height = Layout.fieldHeight();
     }
 
     Field.prototype = Object.create(Core.prototype);

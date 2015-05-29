@@ -16,12 +16,9 @@ ROID5.Blink = (function (Core, Layout) {
                 this.zoneId = z.id;
                 this.x = z.x;
                 this.y = z.y;
-                this.width = z.width;
-                this.height = z.height;
-
                 this._sprite.clear();
                 this._sprite.beginFill(0xFF0000, 0.5);
-                this._sprite.drawRect(this.x, this.y, this.width, this.height);
+                this._sprite.drawRect(this.x, this.y, z.width, z.height);
 
                 this.start();
             }
