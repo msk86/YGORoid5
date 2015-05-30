@@ -42,11 +42,9 @@ ROID5.CoreSprite = (function() {
     }
 
     CoreSprite.prototype.update = function() {
-        if(this._core) {
-            this._core.children.forEach(function(c) {
-                c.sprite().update();
-            });
-        }
+        this.children.forEach(function(c) {
+            c.update();
+        });
     };
     return CoreSprite;
 })();
