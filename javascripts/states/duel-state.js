@@ -39,6 +39,11 @@ var duelState = {
         this.field.addChild(this.overRay);
         this.overRay.moveToField(0, 'Monster', 3);
 
+
+        this.grave = new ROID5.CardList(this.game, 'Grave', [new ROID5.Card(this.game, '6928'), new ROID5.Card(this.game, '6928')]);
+        this.field.addChild(this.grave);
+        this.grave.moveToField(1, 'Graveyard', 0);
+
     },
 
     update: function() {

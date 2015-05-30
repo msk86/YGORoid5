@@ -10,7 +10,7 @@ ROID5.CoreSprite = (function() {
 
     CoreSprite.prototype.changeTexture = function(texture) {
         this.loadTexture(texture, 0);
-        if(this.tWidth && this.tHeight) {
+        if(texture && this.tWidth && this.tHeight) {
             this.scale.setTo(this.tWidth / this.texture.width, this.tHeight / this.texture.height);
         }
     };
