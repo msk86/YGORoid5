@@ -14,12 +14,10 @@ ROID5.OverRaySprite = (function (CoreSprite) {
             if (this._preCardsLength != cards.length || this._prePositive != topCard.positive || this._preSet != topCard.set) {
                 if (this.children.length != cards.length) {
                     this.removeChildren();
-                    for (var i = 0; i < cards.length; i++) {
+                    for (var i = 0; i < cards.length - 1; i++) {
                         var card = cards[i];
-                        card.positive = true;
-                        card.set = false;
-
                         var cardSprite = card.sprite();
+                        cardSprite.showText = false;
                         cardSprite.x = (cards.length - 1 - i) * 3;
                         cardSprite.y = 0;
                         this.addChild(cardSprite);
@@ -28,7 +26,9 @@ ROID5.OverRaySprite = (function (CoreSprite) {
                 }
                 topCard.positive = this._overRay.positive;
                 topCard.set = this._overRay.set;
-                topCard.sprite().update();
+                var topSprite = topCard.sprite();
+                this.addChild(topSprite);
+                topSprite.update();
             }
 
             this._preCardsLength = this._overRay.cards.length;

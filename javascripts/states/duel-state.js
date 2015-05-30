@@ -20,20 +20,22 @@ var duelState = {
 
         this.card = new ROID5.Card(this.game, '6928');
         this.card.set = false;
-        this.card.positive = true;
+        this.card.positive = false;
         this.field.addChild(this.card);
         this.card.moveToField(0, "Monster", 1);
-        setTimeout(function() {
-            self.card.set = true;
-            self.card.positive = false;
-        }, 1000);
+
+        this.card2 = new ROID5.Card(this.game, '6867');
+        this.card2.set = false;
+        this.card2.positive = true;
+        this.field.addChild(this.card2);
+        this.card2.moveToField(0, "Monster", 2);
 
         this.overRay = new ROID5.OverRay(this.game);
         this.overRay.overRay(new ROID5.Card(this.game, '6928'));
         this.overRay.overRay(new ROID5.Card(this.game, '6928'));
         this.overRay.overRay(new ROID5.Card(this.game, '6867'));
         this.overRay.overRay(new ROID5.Card(this.game, '6484'));
-        this.overRay.positive = true;
+        this.overRay.positive = false;
         this.overRay.set = false;
 
         this.field.addChild(this.overRay);
