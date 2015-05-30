@@ -27,30 +27,25 @@ ROID5.CardSprite = (function(CoreSprite, Layout) {
     CardSprite.prototype = Object.create(CoreSprite.prototype);
     CardSprite.prototype.constructor = CardSprite;
     CardSprite.prototype.update = function() {
-        var card = this._card;
-        if(this._prePositive != card.positive || this._preSet != card.set) {
-            if(card.positive) {
-                this.cardImage.angle = 0;
+        this.attrNotifier('positive', function(p, card, sprite) {
+            if(p) {
+                sprite.cardImage.angle = 0;
             } else {
-                this.cardImage.angle = 90;
+                sprite.cardImage.angle = 90;
             }
-            if(card.set) {
-                this.cardImage.changeTexture('cover', Layout.CARD_SIZE);
-            } else {
-                this.cardImage.changeTexture(card.id, Layout.CARD_SIZE);
-            }
+        });
 
-            if(this.showText) {
-                if(card.set) {
-                    this.atkDefText.setText('');
-                } else {
-                    this.atkDefText.setText(card.atk + '/' + card.def);
+        this.attrNotifier('set', function(s, card, sprite) {
+            if(s) {
+                sprite.cardImage.changeTexture('cover', Layout.CARD_SIZE);
+                sprite.atkDefText.setText('');
+            } else {
+                sprite.cardImage.changeTexture(card.id, Layout.CARD_SIZE);
+                if(sprite.showText) {
+                    sprite.atkDefText.setText(card.atk + '/' + card.def);
                 }
             }
-
-            this._prePositive = card.positive;
-            this._preSet = card.set;
-        }
+        });
     };
 
     return CardSprite;

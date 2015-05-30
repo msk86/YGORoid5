@@ -69,8 +69,8 @@ ROID5.Layout = {
         return field.filter(function (line) {
                 return line.indexOf(c) >= 0;
             })[0].split('').filter(function (cc) {
-                return cc == c;
-            }).length * this.RATE;
+                    return cc == c;
+                }).length * this.RATE;
     },
 
     heightOf: function (player, zone, index) {

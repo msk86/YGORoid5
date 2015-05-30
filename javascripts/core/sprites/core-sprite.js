@@ -46,5 +46,39 @@ ROID5.CoreSprite = (function() {
             c.update();
         });
     };
+
+    CoreSprite.prototype.attrNotifier = function(attr, cb) {
+        function attrValue(o, k) {
+            if(o) {
+                var v = o[k];
+                if(typeof v == 'function') {
+                    v = v.call(o);
+                }
+                return v;
+            }
+        }
+
+        if(this._core) {
+            var preAttrKey = ("_pre_" + attr);
+            var previousValue = this[preAttrKey];
+
+            var keys = attr.split('.');
+            var obj = this._core;
+            for(var i=0;i<keys.length;i++) {
+                obj = attrValue(obj, keys[i]);
+            }
+            var currentValue = obj;
+
+            if(typeof currentValue == 'function') {
+                currentValue = currentValue.call(this._core);
+            }
+
+            if(previousValue != currentValue) {
+                cb(currentValue, this._core, this);
+            }
+
+            this[preAttrKey] = currentValue;
+        }
+    };
     return CoreSprite;
 })();

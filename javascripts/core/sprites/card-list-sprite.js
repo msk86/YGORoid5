@@ -17,14 +17,10 @@ ROID5.CardListSprite = (function (CoreSprite, Layout) {
 
         function addListText(cardListSprite) {
             var textStyle = {fontSize: 12, fill: '#FFFFFF', align: 'center'};
-            cardListSprite.nameText = new Phaser.Text(game, 0, -25, cardList.name, textStyle);
-            cardListSprite.nameText.anchor.setTo(0.5);
-            cardListSprite.nameText.setShadow(0, 0, '#000000', 5);
-            cardListSprite.countText = new Phaser.Text(game, 0, 30, cardList.size, textStyle);
+            cardListSprite.countText = new Phaser.Text(game, 0, 40, cardList.size, textStyle);
             cardListSprite.countText.anchor.setTo(0.5);
             cardListSprite.countText.setShadow(0, 0, '#000000', 5);
 
-            cardListSprite.addChild(cardListSprite.nameText);
             cardListSprite.addChild(cardListSprite.countText);
         }
     }
@@ -32,21 +28,20 @@ ROID5.CardListSprite = (function (CoreSprite, Layout) {
     CardListSprite.prototype = Object.create(CoreSprite.prototype);
     CardListSprite.prototype.constructor = CardListSprite;
     CardListSprite.prototype.update = function () {
-        if(this._cardList.size != this._preSize) {
-            if(this._cardList.size) {
-                if(this._cardList.set) {
-                    this.cover.changeTexture('cover', Layout.CARD_SIZE);
-                } else {
-                    this.cover.changeTexture(this._cardList.topCard.id, Layout.CARD_SIZE);
-                }
+        this.attrNotifier('size', function(size, cardList, sprite) {
+            sprite.countText.setText(sprite._cardList.size);
+            if(size == 0) {
+                sprite.cover.changeTexture(null);
             } else {
-                this.cover.changeTexture(null);
+                var texture = cardList.set ? 'cover' : cardList.topCard.id;
+                sprite.cover.changeTexture(texture, Layout.CARD_SIZE);
             }
+        });
 
-            this.countText.setText(this._cardList.size);
-
-            this._preSize = this._cardList.size;
-        }
+        this.attrNotifier('set', function(s, cardList, sprite) {
+            var texture = s ? 'cover' : cardList.topCard.id;
+            sprite.cover.changeTexture(texture, Layout.CARD_SIZE);
+        });
     };
 
     return CardListSprite;

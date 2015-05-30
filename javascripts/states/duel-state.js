@@ -33,7 +33,6 @@ var duelState = {
         this.overRay = new ROID5.OverRay(this.game);
         this.overRay.overRay(new ROID5.Card(this.game, '6928'));
         this.overRay.overRay(new ROID5.Card(this.game, '6867'));
-        this.overRay.overRay(new ROID5.Card(this.game, '6484'));
         this.overRay.positive = false;
         this.overRay.set = false;
 
@@ -44,7 +43,7 @@ var duelState = {
         this.grave = new ROID5.CardList(this.game, 'Grave', 20);
         this.grave.update(20, false, new ROID5.Card(this.game, '6867'));
         this.field.addChild(this.grave);
-        this.grave.moveToField(1, 'Graveyard', 0);
+        this.grave.moveToField(0, 'Graveyard', 0);
 
     },
 
