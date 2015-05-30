@@ -22,8 +22,7 @@ var duelState = {
         this.card.set = false;
         this.card.positive = true;
         this.field.addChild(this.card);
-        var zone1 = ROID5.Layout.zoneDetail(0, 'Monster', 1);
-        this.card.moveTo(zone1.center.x, zone1.center.y);
+        this.card.moveToField(0, "Monster", 1);
         setTimeout(function() {
             self.card.set = true;
             self.card.positive = false;
@@ -38,8 +37,7 @@ var duelState = {
         this.overRay.set = false;
 
         this.field.addChild(this.overRay);
-        var zone3 = ROID5.Layout.zoneDetail(0, 'Monster', 3);
-        this.overRay.moveTo(zone3.center.x, zone3.center.y);
+        this.overRay.moveToField(0, 'Monster', 3);
 
     },
 
