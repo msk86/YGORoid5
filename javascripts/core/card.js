@@ -6,6 +6,9 @@ ROID5.Card = (function(Core, CardSprite) {
         Core.call(this, game);
         this.id = id;
 
+        this.atk = 2500;
+        this.def = 2000;
+
         this.set = false;
         this.positive = true;
     }
