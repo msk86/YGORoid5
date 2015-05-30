@@ -1,28 +1,27 @@
-ROID5.CardSprite = (function(CoreSprite) {
+ROID5.CardSprite = (function(CoreSprite, Layout) {
     function CardSprite(game, x, y, card) {
         CoreSprite.call(this, game, x, y, null);
         this._card = card;
-
         this.anchor.setTo(0.5);
 
         addCardImage(this);
         addAtkDefText(this);
     }
 
-    function addAtkDefText(cardSprite) {
-        cardSprite.showText = true;
-        cardSprite.textPos = {x: 0, y: 32};
-        var textStyle = {fontSize: 12, fill: '#FFFFFF', align: 'center'};
-        cardSprite.atkDefText = new Phaser.Text(cardSprite.game, cardSprite.textPos.x, cardSprite.textPos.y, '', textStyle);
-        cardSprite.atkDefText.anchor.setTo(0.5);
-        cardSprite.addChild(cardSprite.atkDefText);
-    }
-
     function addCardImage(cardSprite) {
         cardSprite.cardImage = new CoreSprite(cardSprite.game, 0, 0, cardSprite._card.id);
-        cardSprite.cardImage.scaleTo(49, 70);
         cardSprite.cardImage.anchor.setTo(0.5);
+        cardSprite.cardImage.scaleTo(Layout.CARD_SIZE);
         cardSprite.addChild(cardSprite.cardImage);
+    }
+
+    function addAtkDefText(cardSprite) {
+        cardSprite.showText = true;
+        var textStyle = {fontSize: 12, fill: '#FFFFFF', align: 'center'};
+        cardSprite.atkDefText = new Phaser.Text(cardSprite.game, 0, 32, '', textStyle);
+        cardSprite.atkDefText.anchor.setTo(0.5);
+        cardSprite.atkDefText.setShadow(0, 0, '#000000', 5);
+        cardSprite.addChild(cardSprite.atkDefText);
     }
 
     CardSprite.prototype = Object.create(CoreSprite.prototype);
@@ -36,9 +35,9 @@ ROID5.CardSprite = (function(CoreSprite) {
                 this.cardImage.angle = 90;
             }
             if(card.set) {
-                this.cardImage.changeTexture('cover');
+                this.cardImage.changeTexture('cover', Layout.CARD_SIZE);
             } else {
-                this.cardImage.changeTexture(card.id);
+                this.cardImage.changeTexture(card.id, Layout.CARD_SIZE);
             }
 
             if(this.showText) {
@@ -55,4 +54,4 @@ ROID5.CardSprite = (function(CoreSprite) {
     };
 
     return CardSprite;
-})(ROID5.CoreSprite);
+})(ROID5.CoreSprite, ROID5.Layout);

@@ -2,12 +2,13 @@ window.ROID5 = window.ROID5 || {};
 
 ROID5.CardList = (function(Core, CardListSprite) {
 
-    function CardList(game, name, cards) {
+    function CardList(game, name, size) {
         Core.call(this, game);
         this.name = name;
-        this.cards = cards;
+        this.size = size;
 
         this.set = false;
+        this.topCard = null;
     }
 
     CardList.prototype = Object.create(Core.prototype);
@@ -17,12 +18,10 @@ ROID5.CardList = (function(Core, CardListSprite) {
         return new CardListSprite(this.game, this.x, this.y, this);
     };
 
-    CardList.prototype.topCard = function() {
-        return this.cards[0];
-    };
-
-    CardList.prototype.length = function() {
-        return this.cards.length;
+    CardList.prototype.update = function(size, isSet, topCard) {
+        this.size = size;
+        this.set = isSet;
+        this.topCard = topCard;
     };
 
     return CardList;

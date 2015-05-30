@@ -1,36 +1,45 @@
 ROID5.CoreSprite = (function() {
     function CoreSprite(game, x, y, texture) {
         Phaser.Sprite.call(this, game, x, y, null);
-        this.tWidth = 0;
-        this.tHeight = 0;
         this.changeTexture(texture);
     }
 
     CoreSprite.prototype = Object.create(Phaser.Sprite.prototype);
     CoreSprite.prototype.constructor = CoreSprite;
 
-    CoreSprite.prototype.changeTexture = function(texture) {
-        if(this._texture == texture) {
-            return;
+    CoreSprite.prototype.changeTexture = function(texture, w, h) {
+        if(this._texture != texture) {
+            this.loadTexture(texture, 0);
+            this._texture = texture;
         }
-        this.loadTexture(texture, 0);
-        this.rescale();
-        this._texture = texture;
-    };
 
-    CoreSprite.prototype.rescale = function() {
-        if(this._texture && this.tWidth && this.tHeight) {
-            this.scale.setTo(this.tWidth / this.texture.width, this.tHeight / this.texture.height);
+        var scale = scaleConfig(w, h);
+        if(this._width != scale.width || this._height != scale.height) {
+            this.scaleTo(scale.width, scale.height);
+            this._width = scale.width;
+            this._height = scale.height;
         }
     };
 
     CoreSprite.prototype.scaleTo = function(w, h) {
-        this.tWidth = w;
-        this.tHeight = h;
-        if(this._texture && this.tWidth && this.tHeight) {
-            this.scale.setTo(this.tWidth / this.texture.width, this.tHeight / this.texture.height);
+        if(this._texture && w && h) {
+            this.scale.setTo(w / this.texture.width, h / this.texture.height);
         }
     };
+
+    function scaleConfig(w, h) {
+        var s = {};
+        w = w || 0;
+        h = h || 0;
+        if(w && !h) {
+            s.width = w.width;
+            s.height = w.height;
+        } else {
+            s.width = w;
+            s.height = h;
+        }
+        return s;
+    }
 
     CoreSprite.prototype.update = function() {
         if(this._core) {

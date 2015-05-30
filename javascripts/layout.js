@@ -103,6 +103,11 @@ ROID5.Layout = {
     FIELD_X: 0,
     FIELD_Y: 64,
 
+    CARD_SIZE: {
+        width: 49,
+        height: 70
+    },
+
     Z_MAP: {
         "F": {zone: 'FieldMagic', index: 0},
         "G": {zone: 'Graveyard', index: 0},

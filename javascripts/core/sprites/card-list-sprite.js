@@ -1,39 +1,53 @@
-ROID5.CardListSprite = (function (CoreSprite) {
+ROID5.CardListSprite = (function (CoreSprite, Layout) {
     function CardListSprite(game, x, y, cardList) {
         CoreSprite.call(this, game, x, y, null);
-        this.cardList = cardList;
+        this._cardList = cardList;
         this.anchor.setTo(0.5);
-        this.tWidth = 49;
-        this.tHeight = 70;
 
-        var textStyle = {font: '12px Arial', fill: '#FFFFFF', align: 'center'};
-        this.nameText = new Phaser.Text(game, 0, -25, cardList.name, textStyle);
-        this.nameText.anchor.setTo(0.5);
-        this.countText = new Phaser.Text(game, 0, 30, cardList.length(), textStyle);
-        this.countText.anchor.setTo(0.5);
+        addCover(this);
+        addListText(this);
 
-        this.addChild(this.nameText);
-        this.addChild(this.countText);
+        function addCover(cardListSprite) {
+            var coverTexture = cardListSprite._cardList.set ? 'cover' : cardListSprite._cardList.topCard.id;
+            cardListSprite.cover = new CoreSprite(cardListSprite.game, 0, 0, coverTexture);
+            cardListSprite.cover.anchor.setTo(0.5);
+            cardListSprite.cover.scaleTo(Layout.CARD_SIZE);
+            cardListSprite.addChild(cardListSprite.cover);
+        }
+
+        function addListText(cardListSprite) {
+            var textStyle = {fontSize: 12, fill: '#FFFFFF', align: 'center'};
+            cardListSprite.nameText = new Phaser.Text(game, 0, -25, cardList.name, textStyle);
+            cardListSprite.nameText.anchor.setTo(0.5);
+            cardListSprite.nameText.setShadow(0, 0, '#000000', 5);
+            cardListSprite.countText = new Phaser.Text(game, 0, 30, cardList.size, textStyle);
+            cardListSprite.countText.anchor.setTo(0.5);
+            cardListSprite.countText.setShadow(0, 0, '#000000', 5);
+
+            cardListSprite.addChild(cardListSprite.nameText);
+            cardListSprite.addChild(cardListSprite.countText);
+        }
     }
 
     CardListSprite.prototype = Object.create(CoreSprite.prototype);
     CardListSprite.prototype.constructor = CardListSprite;
     CardListSprite.prototype.update = function () {
-        if(this.cardList.cards.length != this._preLength) {
-            if(this.cardList.cards.length) {
-                if(this.cardList.set) {
-                    this.changeTexture('cover');
+        if(this._cardList.size != this._preSize) {
+            if(this._cardList.size) {
+                if(this._cardList.set) {
+                    this.cover.changeTexture('cover', Layout.CARD_SIZE);
                 } else {
-                    this.changeTexture(this.cardList.topCard().id);
+                    this.cover.changeTexture(this._cardList.topCard.id, Layout.CARD_SIZE);
                 }
             } else {
-                this.changeTexture(null);
+                this.cover.changeTexture(null);
             }
-            this.countText.setText(this.cardList.length());
 
-            this._preLength = this.cardList.cards.length;
+            this.countText.setText(this._cardList.size);
+
+            this._preSize = this._cardList.size;
         }
     };
 
     return CardListSprite;
-})(ROID5.CoreSprite);
+})(ROID5.CoreSprite, ROID5.Layout);
