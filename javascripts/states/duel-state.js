@@ -35,7 +35,6 @@ var duelState = {
         this.overRay.overRay(new ROID5.Card(this.game, '6867'));
         this.overRay.positive = false;
         this.overRay.set = false;
-
         this.field.addChild(this.overRay);
         this.overRay.moveToField(0, 'Monster', 3);
 

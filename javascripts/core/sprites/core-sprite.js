@@ -9,21 +9,17 @@ ROID5.CoreSprite = (function() {
 
     CoreSprite.prototype.changeTexture = function(texture, w, h) {
         if(this._texture != texture) {
-            this.loadTexture(texture, 0);
             this._texture = texture;
-        }
-
-        var scale = scaleConfig(w, h);
-        if(this._width != scale.width || this._height != scale.height) {
-            this.scaleTo(scale.width, scale.height);
-            this._width = scale.width;
-            this._height = scale.height;
+            this.scale.setTo(1, 1);
+            this.loadTexture(texture, 0);
+            this.scaleTo(w, h);
         }
     };
 
     CoreSprite.prototype.scaleTo = function(w, h) {
-        if(this._texture && w && h) {
-            this.scale.setTo(w / this.texture.width, h / this.texture.height);
+        var scale = scaleConfig(w, h);
+        if(this._texture && scale.width && scale.height) {
+            this.scale.setTo(scale.width / this.texture.width, scale.height / this.texture.height);
         }
     };
 

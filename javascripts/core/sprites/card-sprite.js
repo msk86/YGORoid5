@@ -16,7 +16,6 @@ ROID5.CardSprite = (function(CoreSprite, Layout) {
     }
 
     function addAtkDefText(cardSprite) {
-        cardSprite.showText = true;
         var textStyle = {fontSize: 12, fill: '#FFFFFF', align: 'center'};
         cardSprite.atkDefText = new Phaser.Text(cardSprite.game, 0, 32, '', textStyle);
         cardSprite.atkDefText.anchor.setTo(0.5);
@@ -38,12 +37,18 @@ ROID5.CardSprite = (function(CoreSprite, Layout) {
         this.attrNotifier('set', function(s, card, sprite) {
             if(s) {
                 sprite.cardImage.changeTexture('cover', Layout.CARD_SIZE);
-                sprite.atkDefText.setText('');
+                sprite.removeChild(sprite.atkDefText);
             } else {
                 sprite.cardImage.changeTexture(card.id, Layout.CARD_SIZE);
-                if(sprite.showText) {
-                    sprite.atkDefText.setText(card.atk + '/' + card.def);
-                }
+                sprite.addChild(sprite.atkDefText);
+            }
+        });
+
+        this.attrNotifier('showDetail', function(detail, card, sprite) {
+            if(detail) {
+                sprite.atkDefText.setText(card.atk + '/' + card.def);
+            } else {
+                sprite.atkDefText.setText('');
             }
         });
     };

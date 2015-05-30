@@ -22,8 +22,12 @@ ROID5.OverRay = (function(Core, OverRaySprite) {
     };
 
     OverRay.prototype.overRay = function(card) {
-        card.positive = true;
-        card.set = false;
+        var topCard = this.topCard();
+        if(topCard) {
+            topCard.positive = true;
+            topCard.set = false;
+            topCard.showDetail = false;
+        }
         this.cards.push(card);
     };
 

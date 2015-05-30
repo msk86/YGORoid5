@@ -11,6 +11,8 @@ ROID5.Card = (function(Core, CardSprite) {
 
         this.set = false;
         this.positive = true;
+
+        this.showDetail = true;
     }
 
     Card.prototype = Object.create(Core.prototype);
