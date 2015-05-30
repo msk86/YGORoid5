@@ -1,0 +1,31 @@
+window.ROID5 = window.ROID5 || {};
+
+ROID5.OverRay = (function(Core, OverRaySprite) {
+
+    function OverRay(game) {
+        Core.call(this, game);
+        this.cards = [];
+
+        this.set = false;
+        this.positive = true;
+    }
+
+    OverRay.prototype = Object.create(Core.prototype);
+    OverRay.prototype.constructor = OverRay;
+
+    OverRay.prototype.newSprite = function() {
+        return new OverRaySprite(this.game, this.x, this.y, this);
+    };
+
+    OverRay.prototype.topCard = function() {
+        return this.cards[this.cards.length - 1];
+    };
+
+    OverRay.prototype.overRay = function(card) {
+        card.positive = true;
+        card.set = false;
+        this.cards.push(card);
+    };
+
+    return OverRay;
+})(ROID5.Core, ROID5.OverRaySprite);
