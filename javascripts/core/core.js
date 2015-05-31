@@ -1,7 +1,8 @@
-ROID5.Core = (function(CoreSprite, Layout) {
+ROID5.Core = (function(CoreSprite, Layout, Player) {
 
     function Core(game) {
         this.game = game;
+        this.currentPlayer = Player.ME;
     }
 
     Core.prototype.sprite = function() {
@@ -31,6 +32,7 @@ ROID5.Core = (function(CoreSprite, Layout) {
     };
 
     Core.prototype.moveToField = function(player, zone, index) {
+        this.currentPlayer = player;
         var z = Layout.zoneDetail(player, zone, index);
         this.moveTo(z.center.x, z.center.y);
         if(z.player == 0) {
@@ -41,4 +43,4 @@ ROID5.Core = (function(CoreSprite, Layout) {
     };
 
     return Core;
-})(ROID5.CoreSprite, ROID5.Layout);
+})(ROID5.CoreSprite, ROID5.Layout, ROID5.Player);

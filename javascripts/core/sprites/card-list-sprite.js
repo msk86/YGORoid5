@@ -1,4 +1,4 @@
-ROID5.CardListSprite = (function (CoreSprite, Layout) {
+ROID5.CardListSprite = (function (CoreSprite, Layout, Angle) {
     function CardListSprite(game, x, y, cardList) {
         CoreSprite.call(this, game, x, y, null);
         this._cardList = cardList;
@@ -42,7 +42,11 @@ ROID5.CardListSprite = (function (CoreSprite, Layout) {
             var texture = s ? 'cover' : cardList.topCard.id;
             sprite.cover.changeTexture(texture, Layout.CARD_SIZE);
         });
+
+        this.attrNotifier('currentPlayer', function(p, cardList, sprite) {
+            sprite.cover.angle = new Angle().player(p).value;
+        });
     };
 
     return CardListSprite;
-})(ROID5.CoreSprite, ROID5.Layout);
+})(ROID5.CoreSprite, ROID5.Layout, ROID5.Helpers.Angle);

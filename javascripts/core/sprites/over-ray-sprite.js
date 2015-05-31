@@ -1,7 +1,6 @@
 ROID5.OverRaySprite = (function (CoreSprite) {
     function OverRaySprite(game, x, y, overRay) {
         CoreSprite.call(this, game, x, y, null);
-        this._overRay = overRay;
         this.anchor.setTo(0.5);
     }
 
@@ -13,12 +12,14 @@ ROID5.OverRaySprite = (function (CoreSprite) {
             var cards = overRay.cards;
             for (var i = 0; i < cards.length - 1; i++) {
                 var card = overRay.cards[i];
+                card.currentPlayer = overRay.currentPlayer;
                 var cardSprite = card.sprite();
                 cardSprite.x = (cards.length - 1 - i) * 3;
                 sprite.addChild(cardSprite);
                 cardSprite.update();
             }
             var topCard = overRay.topCard();
+            topCard.currentPlayer = overRay.currentPlayer;
             topCard.positive = overRay.positive;
             topCard.set = overRay.set;
             topCard.showDetail = true;

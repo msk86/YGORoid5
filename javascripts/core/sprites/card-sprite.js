@@ -1,4 +1,4 @@
-ROID5.CardSprite = (function(CoreSprite, Layout) {
+ROID5.CardSprite = (function(CoreSprite, Layout, Angle) {
     function CardSprite(game, x, y, card) {
         CoreSprite.call(this, game, x, y, null);
         this._card = card;
@@ -17,7 +17,7 @@ ROID5.CardSprite = (function(CoreSprite, Layout) {
 
     function addAtkDefText(cardSprite) {
         var textStyle = {fontSize: 12, fill: '#FFFFFF', align: 'center'};
-        cardSprite.atkDefText = new Phaser.Text(cardSprite.game, 0, 32, '', textStyle);
+        cardSprite.atkDefText = new Phaser.Text(cardSprite.game, 0, cardSprite.atkDefTextY(), '', textStyle);
         cardSprite.atkDefText.anchor.setTo(0.5);
         cardSprite.atkDefText.setShadow(0, 0, '#000000', 5);
         cardSprite.addChild(cardSprite.atkDefText);
@@ -27,11 +27,7 @@ ROID5.CardSprite = (function(CoreSprite, Layout) {
     CardSprite.prototype.constructor = CardSprite;
     CardSprite.prototype.update = function() {
         this.attrNotifier('positive', function(p, card, sprite) {
-            if(p) {
-                sprite.cardImage.angle = 0;
-            } else {
-                sprite.cardImage.angle = 90;
-            }
+            sprite.cardImage.angle = new Angle().positive(p).player(card.currentPlayer).value;
         });
 
         this.attrNotifier('set', function(s, card, sprite) {
@@ -51,7 +47,16 @@ ROID5.CardSprite = (function(CoreSprite, Layout) {
                 sprite.atkDefText.setText('');
             }
         });
+
+        this.attrNotifier('currentPlayer', function(p, card, sprite) {
+            sprite.cardImage.angle = new Angle().positive(card.positive).player(p).value;
+            sprite.atkDefText.y = sprite.atkDefTextY();
+        });
     };
 
+    CardSprite.prototype.atkDefTextY = function() {
+        var card = this._core || this._card;
+        return (card.currentPlayer * 2 - 1) * 27 + card.currentPlayer * 6;
+    };
     return CardSprite;
-})(ROID5.CoreSprite, ROID5.Layout);
+})(ROID5.CoreSprite, ROID5.Layout, ROID5.Helpers.Angle);
