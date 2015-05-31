@@ -49,7 +49,6 @@ var duelState = {
         this.deck = new ROID5.Deck(this.game, 'Deck', 35);
         this.field.addChild(this.deck);
         this.deck.moveToField(1, 'Deck', 0);
-
     },
 
     update: function() {
