@@ -45,6 +45,11 @@ var duelState = {
         this.field.addChild(this.grave);
         this.grave.moveToField(0, 'Graveyard', 0);
 
+
+        this.deck = new ROID5.Deck(this.game, 'Deck', 35);
+        this.field.addChild(this.deck);
+        this.deck.moveToField(1, 'Deck', 0);
+
     },
 
     update: function() {
