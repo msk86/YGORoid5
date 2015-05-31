@@ -48,7 +48,6 @@ ROID5.Blink = (function (Core, Layout) {
             var blink = new Phaser.Graphics(self.game, 0, 0);
             blink.beginFill(0xFFFFFF, 0.5);
             blink.drawRect(0, 0, 0, 0);
-            blink._core = self;
             self._sprite = blink;
 
             self._tween = self.game.add.tween(blink).to({alpha: 0.2}, 800, Phaser.Easing.Linear.None, true, 0, -1, true);
