@@ -76,5 +76,31 @@ ROID5.CoreSprite = (function() {
             this[preAttrKey] = currentValue;
         }
     };
+
+    CoreSprite.prototype.getBounds = function() {
+        if(this.children && this.children.length) {
+            var lefts = [];
+            var tops = [];
+            var rights = [];
+            var bottoms = [];
+
+            this.children.forEach(function(c) {
+                var cBounds = c.getBounds();
+                lefts.push(cBounds.x);
+                tops.push(cBounds.y);
+                rights.push(cBounds.x + cBounds.width);
+                bottoms.push(cBounds.y + cBounds.height);
+            });
+
+            var left = Math.min.apply(null, lefts);
+            var top = Math.min.apply(null, tops);
+            var right = Math.max.apply(null, rights);
+            var bottom = Math.max.apply(null, bottoms);
+
+            return new Phaser.Rectangle(left, top, right - left, bottom - top);
+        } else {
+            return Phaser.Sprite.prototype.getBounds.call(this);
+        }
+    };
     return CoreSprite;
 })();

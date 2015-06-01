@@ -35,18 +35,22 @@ window.ROID5.Gesture = (function(Hammer, Layout) {
         var sprites = children.filter(function(c) {
             return c._core;
         });
-        return sprites.filter(function(c) {
-            // TODO
-            return (c.x - c.width / 2) <= point.x &&
-                point.x < (c.x + c.width / 2) &&
-                (c.y - c.height / 2) <= point.y &&
-                point.y < (c.y + c.height / 2);
+        var coreSprite = sprites.filter(function(c) {
+            var bounds = c.getBounds();
+            var px = point.x;
+            var py = point.y;
+            return bounds.left <= px && px < bounds.right &&
+                bounds.top <= py && py < bounds.bottom;
         })[0];
+
+        if(coreSprite) {
+            return coreSprite._core;
+        }
     }
 
     mc.on('doubletap', function(ev) {
         var point = ev.center;
-        Event.fire('doubletap', zone(point), core(point), point);
+        Event.fire('doubletap', zone(point), core(Event.container, point), point);
     });
 
     mc.on('press', function(ev) {
