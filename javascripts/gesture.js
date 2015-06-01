@@ -48,48 +48,88 @@ window.ROID5.Gesture = (function(Hammer, Layout) {
         }
     }
 
+
+    var pickedUp = null;
+    var dragStart = null;
+
     mc.on('doubletap', function(ev) {
         var point = ev.center;
-        Event.fire('doubletap', zone(point), core(Event.container, point), point);
-    });
-
-    mc.on('press', function(ev) {
-        console.log('press at: ', ev.center.x, ev.center.y, ev);
-    });
-
-    mc.on('pressup', function(ev) {
-        console.log('pressup at: ', ev.center.x, ev.center.y, ev);
+        Event.fire('effect', zone(point), core(Event.container, point), point);
     });
 
     mc.on('swipeleft', function(ev) {
-        var center = {x: ev.center.x + ev.distance / 2, y: ev.center.y};
-        console.log('swipe h:', center);
+        if(!pickedUp) {
+            var point = {x: ev.center.x + ev.distance / 2, y: ev.center.y};
+            Event.fire('flip', zone(point), core(Event.container, point), point);
+        }
     });
 
     mc.on('swiperight', function(ev) {
-        var center = {x: ev.center.x - ev.distance / 2, y: ev.center.y};
-        console.log('swipe h:', center);
+        if(!pickedUp) {
+            var point = {x: ev.center.x - ev.distance / 2, y: ev.center.y};
+            Event.fire('flip', zone(point), core(Event.container, point), point);
+        }
     });
 
     mc.on('swipeup', function(ev) {
-        var center = {x: ev.center.x, y: ev.center.y + ev.distance / 2};
-        console.log('swipe v:', center);
+        if(!pickedUp) {
+            var point = {x: ev.center.x, y: ev.center.y + ev.distance / 2};
+            Event.fire('rotate', zone(point), core(Event.container, point), point);
+        }
     });
+
     mc.on('swipedown', function(ev) {
-        var center = {x: ev.center.x, y: ev.center.y - ev.distance / 2};
-        console.log('swipe v:', center);
+        if(!pickedUp) {
+            var point = {x: ev.center.x, y: ev.center.y - ev.distance / 2};
+            Event.fire('rotate', zone(point), core(Event.container, point), point);
+        }
+    });
+
+    mc.on('press', function(ev) {
+        var point = ev.center;
+        Event.fire('pickup', zone(point), core(Event.container, point), point);
+        pickedUp = {
+            zone: zone(point),
+            core: core(Event.container, point),
+            point: point
+        };
+    });
+
+    mc.on('pressup', function(ev) {
+        var point = ev.center;
+        Event.fire('pickcancel', zone(point), core(Event.container, point), point);
+        pickedUp = null;
     });
 
     mc.on('panstart', function(ev) {
-        console.log('panstart at: ', ev.center.x, ev.center.y, ev);
+        var point = ev.center;
+        if(!pickedUp) {
+            Event.fire('dragup', zone(point), core(Event.container, point), point);
+            dragStart = {
+                zone: zone(point),
+                core: core(Event.container, point),
+                point: point
+            };
+        }
     });
 
     mc.on('panmove', function(ev) {
-        console.log('panmove at: ', ev.center.x, ev.center.y, ev);
+        var point = ev.center;
+        var event = pickedUp ? 'picking' : 'dragging';
+        var move = pickedUp || dragStart || {};
+        Event.fire(event, move.zone, move.core, point);
     });
 
     mc.on('panend', function(ev) {
-        console.log('panend at: ', ev.center.x, ev.center.y, ev);
+        var point = ev.center;
+        var event = pickedUp ? 'pickend' : 'dragend';
+        var end = pickedUp || dragStart || {};
+        Event.fire(event, zone(point), end.core, point, end);
+        setTimeout(function() {
+            pickedUp = null;
+            dragStart = null;
+        }, 50);
+
     });
 
 

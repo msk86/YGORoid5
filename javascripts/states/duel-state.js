@@ -51,6 +51,28 @@ var duelState = {
         this.deck.moveToField(1, 'Deck', 0);
 
         ROID5.Gesture.spriteContainer(this.field.sprite());
+
+        ROID5.Gesture.on('doubletap', function(z,c,p) {
+            console.log('doubletap', z, c, p);
+        });
+        ROID5.Gesture.on('press', function(z,c,p) {
+            console.log('press', z, c, p);
+        });
+        ROID5.Gesture.on('flip', function(z,c,p) {
+            console.log('flip', z, c, p);
+        });
+        ROID5.Gesture.on('rotate', function(z,c,p) {
+            console.log('rotate', z, c, p);
+        });
+        ROID5.Gesture.on('pickup', function(z,c,p) {
+            console.log('pickup', z, c, p);
+        });
+        ROID5.Gesture.on('pickcancel', function(z,c,p) {
+            console.log('pickcancel', z, c, p);
+        });
+        ROID5.Gesture.on('pickend', function(z,c,p) {
+            console.log('pickend', z, c, p);
+        });
     },
 
     update: function() {
