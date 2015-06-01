@@ -55,9 +55,6 @@ var duelState = {
         ROID5.Gesture.on('doubletap', function(z,c,p) {
             console.log('doubletap', z, c, p);
         });
-        ROID5.Gesture.on('press', function(z,c,p) {
-            console.log('press', z, c, p);
-        });
         ROID5.Gesture.on('flip', function(z,c,p) {
             console.log('flip', z, c, p);
         });
