@@ -4,6 +4,7 @@ ROID5.Core = (function(CoreSprite, Layout, Player) {
         this.game = game;
         this.currentPlayer = Player.ME;
         this.coreFlag = true;
+        this._maxZ = 0;
     }
 
     Core.prototype.sprite = function() {
@@ -25,16 +26,6 @@ ROID5.Core = (function(CoreSprite, Layout, Player) {
         this.sprite().addChild(coreObject.sprite());
     };
 
-    Core.prototype.moveTo = function(x, y) {
-        this.game.add.tween(this.sprite()).to({x: x, y: y}, 200, Phaser.Easing.Linear.None, true);
-        this.setTo(x, y);
-    };
-
-    Core.prototype.setTo = function(x, y) {
-        this.sprite().x = x;
-        this.sprite().y = y;
-    };
-
     Core.prototype.putTo = function(player, zone, index) {
         index = index || 0;
         var self = this;
@@ -43,6 +34,7 @@ ROID5.Core = (function(CoreSprite, Layout, Player) {
         var x = z.center.x, y = z.center.y;
 
         this.currentPlayer = player;
+
         return {
             set: function() {
                 sprite.x = x;
@@ -50,7 +42,7 @@ ROID5.Core = (function(CoreSprite, Layout, Player) {
             },
             move: function() {
                 var sprite = self.sprite();
-                sprite.bringToTop();
+                sprite.z = ++ self._maxZ;
                 self.game.add.tween(sprite).to({x: x, y: y}, 200, Phaser.Easing.Linear.None, true);
             }
         }

@@ -9,6 +9,7 @@ ROID5.CoreSprite = (function() {
         }
         Phaser.Sprite.call(this, game, x, y, null);
         this.changeTexture(texture);
+        this.z = 0;
     }
 
     CoreSprite.prototype = Object.create(Phaser.Sprite.prototype);
@@ -49,7 +50,9 @@ ROID5.CoreSprite = (function() {
     }
 
     CoreSprite.prototype.update = function() {
-        this.children.forEach(function(c) {
+        this.children.sort(function(a, b) {
+            return a.z - b.z
+        }).forEach(function(c) {
             c.update();
         });
     };

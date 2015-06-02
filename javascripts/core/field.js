@@ -14,7 +14,7 @@ ROID5.Field = (function(Core, CoreSprite, Layout) {
     Field.prototype.constructor = Field;
 
     Field.prototype.newSprite = function() {
-        return new CoreSprite(this.game, this.x, this.y, 'field');
+        return new CoreSprite(this, this.x, this.y, 'field');
     };
 
     return Field;
