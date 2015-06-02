@@ -108,6 +108,11 @@ ROID5.Layout = {
         height: 70
     },
 
+    EFFECT_SIZE: {
+        width: 100,
+        height: 140
+    },
+
     Z_MAP: {
         "F": {zone: 'FieldMagic', index: 0},
         "G": {zone: 'Graveyard', index: 0},

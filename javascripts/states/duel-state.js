@@ -70,6 +70,10 @@ var duelState = {
         ROID5.Gesture.on('pickend', function(z,c,p) {
             console.log('pickend', z, c, p);
         });
+
+
+        this.effect = new ROID5.Effect(this.game, '6867');
+        this.field.addChild(this.effect);
     },
 
     update: function() {
