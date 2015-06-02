@@ -74,7 +74,7 @@ window.ROID5.Gesture = (function(Hammer, Layout) {
     mc.on('swipeup', function(ev) {
         if(!pickedUp) {
             var point = {x: ev.center.x, y: ev.center.y + ev.distance / 2};
-            Event.fire('flipsummon', zone(point), core(Event.container, point), point);
+            Event.fire('flip', zone(point), core(Event.container, point), point);
         }
     });
 

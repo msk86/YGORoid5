@@ -12,12 +12,15 @@ ROID5.Effect = (function(Core, EffectSprite, SummonSprite) {
     Effect.prototype.constructor = Effect;
 
     Effect.prototype.newSprite = function() {
-        if(this.type == Effect.SUMMON) {
+        if(this.type == Effect.TYPE.SUMMON) {
             return new SummonSprite(this);
         } else {
             return new EffectSprite(this);
         }
+    };
 
+    Effect.prototype.effect = function() {
+        this.game.add.existing(this.sprite());
     };
 
     Effect.TYPE = {

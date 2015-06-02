@@ -1,6 +1,6 @@
 ROID5.EffectSprite = (function(CoreSprite, Layout) {
     function EffectSprite(eff) {
-        CoreSprite.call(this, eff, Layout.fieldWidth() / 2, Layout.fieldHeight() / 2, null);
+        CoreSprite.call(this, eff, eff.game.world.centerX, eff.game.world.centerY, null);
         this.anchor.setTo(0.5);
 
         createEffectCard(this, eff.card.id);

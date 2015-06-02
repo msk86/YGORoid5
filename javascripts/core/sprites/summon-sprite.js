@@ -1,6 +1,6 @@
 ROID5.SummonSprite = (function(CoreSprite, Layout) {
     function SummonSprite(eff) {
-        CoreSprite.call(this, eff, Layout.fieldWidth() / 2, Layout.fieldHeight() / 2 + Layout.EFFECT_SIZE.height / 2, null);
+        CoreSprite.call(this, eff, eff.game.world.centerX, eff.game.world.centerY + Layout.EFFECT_SIZE.height / 2, null);
         this.anchor.setTo(0.5);
 
         createSummonCard(this, eff.card.id);

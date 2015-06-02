@@ -52,8 +52,8 @@ var duelState = {
 
         ROID5.Gesture.spriteContainer(this.field.sprite());
 
-        ROID5.Gesture.on('doubletap', function(z,c,p) {
-            console.log('doubletap', z, c, p);
+        ROID5.Gesture.on('effect', function(z,c,p) {
+            console.log('effect', z, c, p);
         });
         ROID5.Gesture.on('flip', function(z,c,p) {
             console.log('flip', z, c, p);
@@ -72,10 +72,10 @@ var duelState = {
         });
 
         setTimeout(function() {
-            self.field.addChild(new ROID5.Effect(self.game, self.card2));
+            new ROID5.Effect(self.game, self.card2).effect();
         }, 500);
         setTimeout(function() {
-            self.field.addChild(new ROID5.Effect(self.game, self.overRay, 'summon'));
+            new ROID5.Effect(self.game, self.overRay, 'summon').effect();
         }, 1500);
 
         setTimeout(function() {
