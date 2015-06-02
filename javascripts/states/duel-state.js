@@ -72,8 +72,10 @@ var duelState = {
         });
 
 
-        this.effect = new ROID5.Effect(this.game, '6867');
-        this.field.addChild(this.effect);
+        setTimeout(function() {
+            self.field.addChild(new ROID5.Effect(self.game, '6867'));
+        }, 1000);
+
     },
 
     update: function() {

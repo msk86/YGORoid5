@@ -14,9 +14,5 @@ ROID5.Effect = (function(Core, EffectSprite) {
         return new EffectSprite(this.game, this.id);
     };
 
-    Effect.prototype.effect = function(cardId) {
-        this.sprite();
-    };
-
     return Effect;
 })(ROID5.Core, ROID5.EffectSprite);
