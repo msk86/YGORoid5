@@ -37,11 +37,11 @@ ROID5.EffectSprite = (function(CoreSprite, Layout) {
         }
 
         function tweenStart(effect) {
-            var fadeIn = effect.game.add.tween(effect._card).to({alpha: 1}, 150, Phaser.Easing.Linear.None, true);
+            var fadeIn = effect.game.add.tween(effect._card).to({alpha: 1}, 100, Phaser.Easing.Linear.None, true);
             fadeIn.onComplete.addOnce(function() {
-                var flash = effect.game.add.tween(effect._blink).to({x: Layout.EFFECT_SIZE.width}, 800, Phaser.Easing.Linear.None, true);
+                var flash = effect.game.add.tween(effect._blink).to({x: Layout.EFFECT_SIZE.width}, 400, Phaser.Easing.Linear.None, true);
                 flash.onComplete.addOnce(function() {
-                    var fadeOut = effect.game.add.tween(effect._card).to({alpha: 0}, 150, Phaser.Easing.Linear.None, true);
+                    var fadeOut = effect.game.add.tween(effect._card).to({alpha: 0}, 100, Phaser.Easing.Linear.None, true);
                     fadeOut.onComplete.addOnce(function() {
                         effect.destroy();
                     });

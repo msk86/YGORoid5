@@ -71,10 +71,12 @@ var duelState = {
             console.log('pickend', z, c, p);
         });
 
-
+        //setTimeout(function() {
+        //    self.field.addChild(new ROID5.Effect(self.game, '6867'));
+        //}, 500);
         setTimeout(function() {
-            self.field.addChild(new ROID5.Effect(self.game, '6867'));
-        }, 1000);
+            self.field.addChild(new ROID5.Effect(self.game, '6867', 'summon'));
+        }, 500);
 
     },
 

@@ -60,28 +60,28 @@ window.ROID5.Gesture = (function(Hammer, Layout) {
     mc.on('swipeleft', function(ev) {
         if(!pickedUp) {
             var point = {x: ev.center.x + ev.distance / 2, y: ev.center.y};
-            Event.fire('flip', zone(point), core(Event.container, point), point);
+            Event.fire('rotate', zone(point), core(Event.container, point), point);
         }
     });
 
     mc.on('swiperight', function(ev) {
         if(!pickedUp) {
             var point = {x: ev.center.x - ev.distance / 2, y: ev.center.y};
-            Event.fire('flip', zone(point), core(Event.container, point), point);
+            Event.fire('rotate', zone(point), core(Event.container, point), point);
         }
     });
 
     mc.on('swipeup', function(ev) {
         if(!pickedUp) {
             var point = {x: ev.center.x, y: ev.center.y + ev.distance / 2};
-            Event.fire('rotate', zone(point), core(Event.container, point), point);
+            Event.fire('flipsummon', zone(point), core(Event.container, point), point);
         }
     });
 
     mc.on('swipedown', function(ev) {
         if(!pickedUp) {
             var point = {x: ev.center.x, y: ev.center.y - ev.distance / 2};
-            Event.fire('rotate', zone(point), core(Event.container, point), point);
+            Event.fire('flip', zone(point), core(Event.container, point), point);
         }
     });
 
