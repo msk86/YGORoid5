@@ -2,10 +2,10 @@ window.ROID5 = window.ROID5 || {};
 
 ROID5.Effect = (function(Core, EffectSprite, SummonSprite) {
 
-    function Effect(game, id, type) {
+    function Effect(game, card, type) {
         Core.call(this, game);
         this.type = type;
-        this.id = id;
+        this.card = card;
     }
 
     Effect.prototype = Object.create(Core.prototype);
@@ -13,9 +13,9 @@ ROID5.Effect = (function(Core, EffectSprite, SummonSprite) {
 
     Effect.prototype.newSprite = function() {
         if(this.type == Effect.SUMMON) {
-            return new SummonSprite(this.game, this.id);
+            return new SummonSprite(this);
         } else {
-            return new EffectSprite(this.game, this.id);
+            return new EffectSprite(this);
         }
 
     };

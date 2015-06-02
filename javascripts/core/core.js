@@ -3,15 +3,14 @@ ROID5.Core = (function(CoreSprite, Layout, Player) {
     function Core(game) {
         this.game = game;
         this.currentPlayer = Player.ME;
+        this.coreFlag = true;
     }
 
     Core.prototype.sprite = function() {
         var self = this;
         function createSprite() {
-            var sprite = self.newSprite();
-            sprite._core = self;
-            self._sprite = sprite;
-            return sprite;
+            self._sprite = self.newSprite();
+            return self._sprite;
         }
 
         return this._sprite || createSprite();
@@ -19,7 +18,7 @@ ROID5.Core = (function(CoreSprite, Layout, Player) {
 
     // Override this function to create own sprite
     Core.prototype.newSprite = function() {
-        return new CoreSprite(this.game, this.x, this.y, null);
+        return new CoreSprite(this, this.x, this.y, null);
     };
 
     Core.prototype.addChild = function(coreObject) {

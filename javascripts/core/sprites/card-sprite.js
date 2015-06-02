@@ -1,7 +1,6 @@
 ROID5.CardSprite = (function(CoreSprite, Layout, Angle) {
-    function CardSprite(game, x, y, card) {
-        CoreSprite.call(this, game, x, y, null);
-        this._card = card;
+    function CardSprite(card) {
+        CoreSprite.call(this, card, 0, 0, null);
         this.anchor.setTo(0.5);
 
         addCardImage(this);
@@ -9,7 +8,7 @@ ROID5.CardSprite = (function(CoreSprite, Layout, Angle) {
     }
 
     function addCardImage(cardSprite) {
-        cardSprite.cardImage = new CoreSprite(cardSprite.game, 0, 0, cardSprite._card.id);
+        cardSprite.cardImage = new CoreSprite(cardSprite.game, 0, 0, cardSprite._core.id);
         cardSprite.cardImage.anchor.setTo(0.5);
         cardSprite.cardImage.scaleTo(Layout.CARD_SIZE);
         cardSprite.addChild(cardSprite.cardImage);
@@ -55,7 +54,7 @@ ROID5.CardSprite = (function(CoreSprite, Layout, Angle) {
     };
 
     CardSprite.prototype.atkDefTextY = function() {
-        var card = this._core || this._card;
+        var card = this._core;
         return (card.currentPlayer * 2 - 1) * 27 + card.currentPlayer * 6;
     };
     return CardSprite;

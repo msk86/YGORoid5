@@ -6,6 +6,7 @@ ROID5.OverRay = (function(Core, OverRaySprite) {
         Core.call(this, game);
         this.cards = [];
 
+        this.id = null;
         this.set = false;
         this.positive = true;
     }
@@ -14,7 +15,7 @@ ROID5.OverRay = (function(Core, OverRaySprite) {
     OverRay.prototype.constructor = OverRay;
 
     OverRay.prototype.newSprite = function() {
-        return new OverRaySprite(this.game, this.x, this.y, this);
+        return new OverRaySprite(this);
     };
 
     OverRay.prototype.topCard = function() {
@@ -29,6 +30,7 @@ ROID5.OverRay = (function(Core, OverRaySprite) {
             topCard.showDetail = false;
         }
         this.cards.push(card);
+        this.id = card.id;
     };
 
     return OverRay;

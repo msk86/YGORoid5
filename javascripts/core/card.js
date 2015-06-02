@@ -19,7 +19,7 @@ ROID5.Card = (function(Core, CardSprite) {
     Card.prototype.constructor = Card;
 
     Card.prototype.newSprite = function() {
-        return new CardSprite(this.game, this.x, this.y, this);
+        return new CardSprite(this);
     };
 
     return Card;

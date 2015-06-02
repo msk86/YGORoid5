@@ -1,6 +1,6 @@
 ROID5.OverRaySprite = (function (CoreSprite) {
-    function OverRaySprite(game, x, y, overRay) {
-        CoreSprite.call(this, game, x, y, null);
+    function OverRaySprite(overRay) {
+        CoreSprite.call(this, overRay, 0, 0, null);
         this.anchor.setTo(0.5);
     }
 

@@ -15,7 +15,7 @@ ROID5.CardList = (function(Core, CardListSprite) {
     CardList.prototype.constructor = CardList;
 
     CardList.prototype.newSprite = function() {
-        return new CardListSprite(this.game, this.x, this.y, this);
+        return new CardListSprite(this);
     };
 
     CardList.prototype.update = function(size, isSet, topCard) {

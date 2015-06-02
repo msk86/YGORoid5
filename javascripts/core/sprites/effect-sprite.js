@@ -1,16 +1,16 @@
 ROID5.EffectSprite = (function(CoreSprite, Layout) {
-    function EffectSprite(game, texture) {
-        CoreSprite.call(this, game, Layout.fieldWidth() / 2, Layout.fieldHeight() / 2, null);
+    function EffectSprite(eff) {
+        CoreSprite.call(this, eff, Layout.fieldWidth() / 2, Layout.fieldHeight() / 2, null);
         this.anchor.setTo(0.5);
 
-        createEffectCard(this, texture);
+        createEffectCard(this, eff.card.id);
         createEffectBlink(this);
         createBlackMask(this);
 
         tweenStart(this);
 
         function createEffectCard(effect, texture) {
-            var card = new CoreSprite(game, 0, 0, texture);
+            var card = new CoreSprite(effect.game, 0, 0, texture);
             card.alpha = 0;
             card.anchor.setTo(0.5);
             card.scaleTo(Layout.EFFECT_SIZE);
@@ -20,7 +20,7 @@ ROID5.EffectSprite = (function(CoreSprite, Layout) {
         }
 
         function createEffectBlink(effect) {
-            var _blink = new CoreSprite(game, -Layout.EFFECT_SIZE.width, 0, 'effect');
+            var _blink = new CoreSprite(effect.game, -Layout.EFFECT_SIZE.width, 0, 'effect');
             _blink.anchor.setTo(0.5);
             _blink.scaleTo(Layout.EFFECT_SIZE.height, Layout.EFFECT_SIZE.height);
             effect.addChild(_blink);
@@ -29,7 +29,7 @@ ROID5.EffectSprite = (function(CoreSprite, Layout) {
         }
 
         function createBlackMask(effect) {
-            var mask = new Phaser.Graphics(game, 0, 0);
+            var mask = new Phaser.Graphics(effect.game, 0, 0);
             mask.beginFill(0xffffff);
             mask.drawRect(-Layout.EFFECT_SIZE.width / 2, -Layout.EFFECT_SIZE.height / 2, Layout.EFFECT_SIZE.width, Layout.EFFECT_SIZE.height);
             effect.addChild(mask);

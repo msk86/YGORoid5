@@ -72,10 +72,10 @@ var duelState = {
         });
 
         setTimeout(function() {
-            self.field.addChild(new ROID5.Effect(self.game, '6867'));
+            self.field.addChild(new ROID5.Effect(self.game, self.card2));
         }, 500);
         setTimeout(function() {
-            self.field.addChild(new ROID5.Effect(self.game, '6867', 'summon'));
+            self.field.addChild(new ROID5.Effect(self.game, self.overRay, 'summon'));
         }, 1500);
 
         setTimeout(function() {

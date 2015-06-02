@@ -1,7 +1,6 @@
 ROID5.CardListSprite = (function (CoreSprite, Layout, Angle) {
-    function CardListSprite(game, x, y, cardList) {
-        CoreSprite.call(this, game, x, y, null);
-        this._cardList = cardList;
+    function CardListSprite(cardList) {
+        CoreSprite.call(this, cardList, 0, 0, null);
         this.anchor.setTo(0.5);
 
         addCover(this);
@@ -9,7 +8,7 @@ ROID5.CardListSprite = (function (CoreSprite, Layout, Angle) {
         addListText(this);
 
         function addCover(cardListSprite) {
-            var coverTexture = cardListSprite._cardList.set ? 'cover' : cardListSprite._cardList.topCard.id;
+            var coverTexture = cardListSprite._core.set ? 'cover' : cardListSprite._core.topCard.id;
             cardListSprite.cover = new CoreSprite(cardListSprite.game, 0, cardListSprite.listHeight(), coverTexture);
             cardListSprite.cover.anchor.setTo(0.5);
             cardListSprite.cover.scaleTo(Layout.CARD_SIZE);
@@ -24,7 +23,7 @@ ROID5.CardListSprite = (function (CoreSprite, Layout, Angle) {
 
         function addListText(cardListSprite) {
             var textStyle = {fontSize: 12, fill: '#FFFFFF', align: 'center'};
-            cardListSprite.countText = new Phaser.Text(game, 0, 40, cardList.size, textStyle);
+            cardListSprite.countText = new Phaser.Text(cardListSprite.game, 0, 40, cardList.size, textStyle);
             cardListSprite.countText.anchor.setTo(0.5);
             cardListSprite.countText.setShadow(0, 0, '#000000', 5);
 
@@ -36,7 +35,7 @@ ROID5.CardListSprite = (function (CoreSprite, Layout, Angle) {
     CardListSprite.prototype.constructor = CardListSprite;
     CardListSprite.prototype.update = function () {
         this.attrNotifier('size', function(size, cardList, sprite) {
-            sprite.countText.setText(sprite._cardList.size);
+            sprite.countText.setText(sprite._core.size);
             if(size == 0) {
                 sprite.cover.changeTexture(null);
             } else {
@@ -59,7 +58,7 @@ ROID5.CardListSprite = (function (CoreSprite, Layout, Angle) {
     };
 
     CardListSprite.prototype.listHeight = function() {
-        return -this._cardList.size / 8;
+        return -this._core.size / 8;
     };
 
     CardListSprite.prototype.drawListSide = function(graphic) {

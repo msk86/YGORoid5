@@ -1,11 +1,22 @@
 ROID5.CoreSprite = (function() {
-    function CoreSprite(game, x, y, texture) {
+    function CoreSprite(core, x, y, texture) {
+        var game = null;
+        if(this.isCore(core)) {
+            game = core.game;
+            this._core = core;
+        } else {
+            game = core;
+        }
         Phaser.Sprite.call(this, game, x, y, null);
         this.changeTexture(texture);
     }
 
     CoreSprite.prototype = Object.create(Phaser.Sprite.prototype);
     CoreSprite.prototype.constructor = CoreSprite;
+
+    CoreSprite.prototype.isCore = function(core) {
+        return core.coreFlag;
+    };
 
     CoreSprite.prototype.changeTexture = function(texture, w, h) {
         if(this._texture != texture) {

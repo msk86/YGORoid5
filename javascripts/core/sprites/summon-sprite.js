@@ -1,29 +1,29 @@
 ROID5.SummonSprite = (function(CoreSprite, Layout) {
-    function SummonSprite(game, texture) {
-        CoreSprite.call(this, game, Layout.fieldWidth() / 2, Layout.fieldHeight() / 2 + Layout.EFFECT_SIZE.height / 2, null);
+    function SummonSprite(eff) {
+        CoreSprite.call(this, eff, Layout.fieldWidth() / 2, Layout.fieldHeight() / 2 + Layout.EFFECT_SIZE.height / 2, null);
         this.anchor.setTo(0.5);
 
-        createEffectCard(this, texture);
+        createSummonCard(this, eff.card.id);
 
         tweenStart(this);
 
-        function createEffectCard(effect, texture) {
-            var card = new CoreSprite(game, 0, 0, texture);
+        function createSummonCard(summonEffect, texture) {
+            var card = new CoreSprite(summonEffect.game, 0, 0, texture);
             card.anchor.setTo(0.5, 1);
             card.scaleTo(Layout.EFFECT_SIZE);
             card.height = 0;
-            effect.addChild(card);
+            summonEffect.addChild(card);
 
-            effect._card = card;
+            summonEffect._card = card;
         }
 
 
-        function tweenStart(effect) {
-            var summon = effect.game.add.tween(effect._card).to({height: Layout.EFFECT_SIZE.height}, 150, Phaser.Easing.Linear.None, true);
+        function tweenStart(summonEffect) {
+            var summon = summonEffect.game.add.tween(summonEffect._card).to({height: Layout.EFFECT_SIZE.height}, 150, Phaser.Easing.Linear.None, true);
             summon.onComplete.addOnce(function() {
-                var fadeOut = effect.game.add.tween(effect._card).to({alpha: 0}, 100, Phaser.Easing.Linear.None, true, 250);
+                var fadeOut = summonEffect.game.add.tween(summonEffect._card).to({alpha: 0}, 100, Phaser.Easing.Linear.None, true, 250);
                 fadeOut.onComplete.addOnce(function() {
-                    effect.destroy();
+                    summonEffect.destroy();
                 });
             });
         }
