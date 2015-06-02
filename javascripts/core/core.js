@@ -39,21 +39,20 @@ ROID5.Core = (function(CoreSprite, Layout, Player) {
     Core.prototype.putTo = function(player, zone, index) {
         index = index || 0;
         var self = this;
-        this.currentPlayer = player;
         var z = Layout.zoneDetail(player, zone, index);
-        if(z.player == 0) {
-            this.sprite().baseAngle = 180;
-        } else {
-            this.sprite().baseAngle = 0;
-        }
+        var sprite = this.sprite();
         var x = z.center.x, y = z.center.y;
+
+        this.currentPlayer = player;
         return {
             set: function() {
-                self.sprite().x = x;
-                self.sprite().y = y;
+                sprite.x = x;
+                sprite.y = y;
             },
             move: function() {
-                self.game.add.tween(self.sprite()).to({x: x, y: y}, 150, Phaser.Easing.Linear.None, true);
+                var sprite = self.sprite();
+                sprite.bringToTop();
+                self.game.add.tween(sprite).to({x: x, y: y}, 200, Phaser.Easing.Linear.None, true);
             }
         }
     };

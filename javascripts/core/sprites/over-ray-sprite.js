@@ -39,6 +39,12 @@ ROID5.OverRaySprite = (function (CoreSprite) {
             var topSprite = topCard.sprite();
             topSprite.update();
         });
+        this.attrNotifier('currentPlayer', function(p, overRay, sprite) {
+            overRay.cards.forEach(function(card) {
+                card.currentPlayer = p;
+                card.sprite().update();
+            });
+        });
     };
 
     return OverRaySprite;
