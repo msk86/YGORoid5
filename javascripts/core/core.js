@@ -27,18 +27,34 @@ ROID5.Core = (function(CoreSprite, Layout, Player) {
     };
 
     Core.prototype.moveTo = function(x, y) {
+        this.game.add.tween(this.sprite()).to({x: x, y: y}, 200, Phaser.Easing.Linear.None, true);
+        this.setTo(x, y);
+    };
+
+    Core.prototype.setTo = function(x, y) {
         this.sprite().x = x;
         this.sprite().y = y;
     };
 
-    Core.prototype.moveToField = function(player, zone, index) {
+    Core.prototype.putTo = function(player, zone, index) {
+        index = index || 0;
+        var self = this;
         this.currentPlayer = player;
         var z = Layout.zoneDetail(player, zone, index);
-        this.moveTo(z.center.x, z.center.y);
         if(z.player == 0) {
             this.sprite().baseAngle = 180;
         } else {
             this.sprite().baseAngle = 0;
+        }
+        var x = z.center.x, y = z.center.y;
+        return {
+            set: function() {
+                self.sprite().x = x;
+                self.sprite().y = y;
+            },
+            move: function() {
+                self.game.add.tween(self.sprite()).to({x: x, y: y}, 150, Phaser.Easing.Linear.None, true);
+            }
         }
     };
 

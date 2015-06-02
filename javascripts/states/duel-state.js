@@ -22,13 +22,13 @@ var duelState = {
         this.card.set = false;
         this.card.positive = false;
         this.field.addChild(this.card);
-        this.card.moveToField(0, "Monster", 1);
+        this.card.putTo(0, "Monster", 1).set();
 
         this.card2 = new ROID5.Card(this.game, '6867');
         this.card2.set = false;
         this.card2.positive = true;
         this.field.addChild(this.card2);
-        this.card2.moveToField(1, "Monster", 2);
+        this.card2.putTo(1, "Monster", 2).set();
 
         this.overRay = new ROID5.OverRay(this.game);
         this.overRay.overRay(new ROID5.Card(this.game, '6928'));
@@ -37,18 +37,18 @@ var duelState = {
         this.overRay.positive = false;
         this.overRay.set = false;
         this.field.addChild(this.overRay);
-        this.overRay.moveToField(0, 'Monster', 3);
+        this.overRay.putTo(0, 'Monster', 3).set();
 
 
         this.grave = new ROID5.CardList(this.game, 'Grave', 20);
         this.grave.update(20, false, new ROID5.Card(this.game, '6867'));
         this.field.addChild(this.grave);
-        this.grave.moveToField(0, 'Graveyard', 0);
+        this.grave.putTo(0, 'Graveyard').set();
 
 
         this.deck = new ROID5.Deck(this.game, 'Deck', 35);
         this.field.addChild(this.deck);
-        this.deck.moveToField(1, 'Deck', 0);
+        this.deck.putTo(1, 'Deck').set();
 
         ROID5.Gesture.spriteContainer(this.field.sprite());
 
@@ -71,12 +71,16 @@ var duelState = {
             console.log('pickend', z, c, p);
         });
 
-        //setTimeout(function() {
-        //    self.field.addChild(new ROID5.Effect(self.game, '6867'));
-        //}, 500);
+        setTimeout(function() {
+            self.field.addChild(new ROID5.Effect(self.game, '6867'));
+        }, 500);
         setTimeout(function() {
             self.field.addChild(new ROID5.Effect(self.game, '6867', 'summon'));
-        }, 500);
+        }, 1500);
+
+        setTimeout(function() {
+            self.card.putTo(0, "Monster", 4).move();
+        }, 2500);
 
     },
 
